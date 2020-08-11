@@ -48,6 +48,10 @@ for (let x = 0; x < 8; x++) {
       })
         .done(function (data) {
           let dating = JSON.parse(data);
+          if (dating[2] == "true") {
+            alert("勝敗が決しました");
+            location.href = "/";
+          }
           ban_ar = dating[0];
           turn = dating[1];
           if (turn == 1) {
