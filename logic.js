@@ -76,9 +76,12 @@ function change(x, y, add_x, add_y) {
   let all_y = y; //クリックしたところのy軸
 
   while (true) {
-    all_x = all_x + add_x; //引数の分だけx軸にずらしていく
-    all_y = all_y + add_y; //引数の分だけy軸にずらしていく
-    //xが0より小さい,7より大きい,yが0より小さい,yが7より大きい時break;
+    //whileはbreakされない限りループする
+    //ここでは一方向ずつクリックしたマスの上,右上,右，右下，下,左下,左,左上を全て見に行く
+    all_x = all_x + add_x;
+    all_y = all_y + add_y;
+
+    //次に見るマスのxが0より小さい,7より大きい,yが0より小さい,yが7より大きい時break
     if (all_x < 0 || all_x > 7 || all_y < 0 || all_y > 7) {
       break;
     }
@@ -86,19 +89,19 @@ function change(x, y, add_x, add_y) {
     //----------------------------------------------------------
 
     //----------------------------------------------------------
-    //自分のターンならflagを1にしてループを抜ける
+    //次に見るマスが自分の駒ならflagを1にしてループを抜ける
     if (state[all_y][all_x] == turn) {
       flag = 1;
       break;
     }
-    //上記のif3つを通らなかったらひっくり返す
-    state[all_y][all_x] = state[all_y][all_x] * -1;
-    //上記のif3つを通らなかったら何個ひっくり返せるか数える
-    reverse_num++;
+    state[all_y][all_x] = state[all_y][all_x] * -1; //上記のif3つを通らなかったらひっくり返す
+    reverse_num++; //上記のif3つを通らなかったら何個ひっくり返せるか数える
   }
-  //flagが0でひっくり返せない時はbackupで元の状態に戻す
+
   if (reverse_num > 0) {
+    //3つの条件に当てはまらないでひっくり返せる駒が1つでもある時
     if (flag == 0) {
+      //延長線上に自分の駒がなければひっくり返さない(backupを復元)
       for (let i = 0; i < 8; i++) {
         for (let ii = 0; ii < 8; ii++) {
           state[i][ii] = backup[i][ii];
@@ -106,11 +109,11 @@ function change(x, y, add_x, add_y) {
         }
       }
     } else {
-      //クリックした時に自分の駒を置く
-      state[y][x] = turn;
+      //延長線上に自分の駒がなければひっくり返す(backupを復元しない)
+      state[y][x] = turn; //クリックしたところに自分の駒を置く
     }
   }
-  return reverse_num;
+  return reverse_num; //何個ひっくり返せるかを返す
 }
 
 function skip() {
