@@ -4,7 +4,6 @@ for (let i = 0; i < 8; i++) {
   state[i] = new Array(8); //二次元配列化 (ここで8*8の配列)
 }
 let judge = "false"; //勝敗の判定 (問題4で使います)
-
 module.exports = class logic {
   //クラスは習っていないので，無視でOK
   //通信が繋がった時orリロード時にする処理
@@ -47,6 +46,7 @@ module.exports = class logic {
 };
 
 function check(x, y) {
+  //クリックしたマスが何個ひっくり返すことができるのか
   let count = 0; //ひっくり返せる数
   count = count + change(x, y, 0, -1);
   count = count + change(x, y, 1, -1);
@@ -146,6 +146,6 @@ function skip() {
 function win() {
   //問題 4 勝敗を決する (ヒント無し)
   //-------------------------------------
-  // return true;
+  // judge='true';
   //-------------------------------------
 }
