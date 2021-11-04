@@ -18,7 +18,7 @@ function ban_new() {
     }
   }
 }
-//読み込みイベント
+//読み込み
 $.ajax({
   type: "POST",
   url: "/first",
